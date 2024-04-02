@@ -1,10 +1,12 @@
 package Bouzhar.BotolaPro.demo.controller;
 
 import Bouzhar.BotolaPro.demo.dto.ArticleDto;
+import Bouzhar.BotolaPro.demo.dto.ArticleReq;
 import Bouzhar.BotolaPro.demo.dto.ArticleWithImage;
 import Bouzhar.BotolaPro.demo.entity.Article;
 import Bouzhar.BotolaPro.demo.service.ArticleService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,22 +33,21 @@ public class ArticleController {
         return ResponseEntity.ok(articleService.findById(articleId));
     }
 
-    @PostMapping(/*path = "add"*/)
-    public ResponseEntity<ArticleDto> addArticle(@RequestPart("articleDto") ArticleDto articleDto, @RequestPart("image") MultipartFile image) {
+    @PostMapping(/*path = "add"*/consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<ArticleDto> addArticle(@ModelAttribute ArticleReq article) {
+        ArticleDto articleDto = new ArticleDto();
+        articleDto.setTitle(article.getTitle());
+        articleDto.setContent(article.getContent());
+        articleDto.setImageFile(article.getImage());
 
-        System.out.println("type" + image.getContentType());
-        System.out.println("name" + image.getName());
-        System.out.println("name" + image.getSize());
-        ArticleWithImage article = new ArticleWithImage(articleDto, image);
-        return ResponseEntity.status(HttpStatus.CREATED).body(articleService.create_(article));
+        ArticleWithImage articleWithImage = new ArticleWithImage(articleDto, article.getImage());
+        return ResponseEntity.status(HttpStatus.CREATED).body(articleService.create_(articleWithImage));
     }
-    @PostMapping(path = "test")
+
+/*    @PostMapping(path = "test")
     public String addTest(MultipartFile file) {
-        System.out.println("type" + file.getContentType());
-        System.out.println("name" + file.getName());
-        System.out.println("name" + file.getSize());
-        return "test";
-    }
+        return articleService.getImageDataUrl();
+    }*/
 
     @PutMapping()
     public ResponseEntity<ArticleDto> updateArticle(@RequestBody ArticleDto articleDto) {

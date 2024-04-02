@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -16,6 +17,8 @@ public class ArticleDto {
     private Long id;
     private String title;
     private String content;
+    private MultipartFile imageFile;
+    private String imageUrl;
     private Boolean isApproved;
     private List<Long> playersIds;
     private List<Long> clubsIds;

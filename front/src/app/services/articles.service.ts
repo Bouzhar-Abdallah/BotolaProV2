@@ -13,7 +13,7 @@ export class ArticlesService {
   constructor(private http: HttpClient) {}
 
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    headers: new HttpHeaders({ 'Content-Type': 'application/json'}),
   };
 
   loadAll() {
@@ -21,7 +21,7 @@ export class ArticlesService {
   }
   add(article: FormData) {
     console.log("articleService")
-    return this.http.post<Article>(this.levelsURL, article, this.httpOptions);
+    return this.http.post<Article>(this.levelsURL, article);
   }
   update(article: Article) {
     return this.http.put<Article>(this.levelsURL + article.id, article, this.httpOptions);

@@ -30,41 +30,35 @@ export class DialogContentComponent implements OnInit {
       image: [''],
     });
   }
-  onSubmit1() {
-    /* console.log("onSubmit");
-
+  onFileSelect(event: any) {
+    if (event.target.files.length > 0) {
+      this.selectedFile = event.target.files[0];
+    }
+  }
+  selectedFile: File | null = null;
+  
+  
+  onSubmit() {
+    console.log("selected file",this.selectedFile); 
     const formData = new FormData();
+    
+    // Append title and content to formData
     formData.append('title', this.articleForm.get('title')?.value);
     formData.append('content', this.articleForm.get('content')?.value);
-
-    const imageFile = this.articleForm.get('image')?.value;
-    if (imageFile) {
-      formData.append('image', imageFile);
+    
+    // Append image to formData
+    if (this.selectedFile) {
+      formData.append('image', this.selectedFile);
     }
 
-  
-    console.log("Form Data image:", formData.get('image')); 
-
+    // Log FormData
+    formData.forEach((value, key) => {
+      console.log(`${key}: ${value}`);
+    });
+    
+    // Send POST request
     this.articleService.add(formData).subscribe((res) => {
-      console.log("Response:", res);
-    }); */
-  }
-  onSubmit() {
-    const formData = new FormData();
-    formData.append('articleDto', new Blob([JSON.stringify({
-      title: this.articleForm.get('title')?.value,
-      content: this.articleForm.get('content')?.value
-    })], {
-      type: "application/json"
-    }));
-
-    const imageFile: File = this.articleForm.get('image')?.value.file;
-    if (imageFile) {
-      formData.append('image', imageFile);
-    }
-
-    this.articleService.add(formData).subscribe((res) => {
-      console.log("Response:", res);
+      console.log('Response:', res);
     });
   }
 }

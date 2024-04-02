@@ -15,6 +15,7 @@ export class HomeArticlesComponent {
   ngOnInit(){
     this.articleService.loadAll().subscribe((articles)=>{
       this.articles = articles
+      console.log(articles)
     })
   }
 }

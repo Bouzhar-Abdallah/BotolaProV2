@@ -9,6 +9,7 @@ import Bouzhar.BotolaPro.demo.service.contract.ArticleServiceC;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Base64;
 import java.util.List;
 
 @Service
@@ -46,8 +47,9 @@ public class ArticleService implements ArticleServiceC {
             if (image != null) {
                 byte[] imageBytes = image.getBytes();
                 newArticleEntity.setImage(imageBytes);
+                System.out.println("here");
+                System.out.println(imageBytes.length);
             }
-
         Article savedEntity = articleRepository.save(newArticleEntity);
         return articleMapper.toDto(savedEntity);
         }catch (Exception e){
@@ -56,6 +58,11 @@ public class ArticleService implements ArticleServiceC {
         }
 
         //return articleMapper.toDto(articleRepository.save(newArticleEntity));
+    }
+    public String getImageDataUrl(byte[] imageData) {
+
+        String base64Image = Base64.getEncoder().encodeToString(imageData);
+        return "data:image/jpeg;base64," + base64Image;
     }
     @Override
     public ArticleDto update(ArticleDto dto) {
@@ -76,6 +83,14 @@ public class ArticleService implements ArticleServiceC {
 
     @Override
     public List<ArticleDto> getAll() {
+        List<Article> articles= articleRepository.findAll();
+        articles.stream().map(article -> {
+            if (article.getImage() != null){
+
+            article.setImageUrl(getImageDataUrl(article.getImage()));
+            }
+            return article;
+        }).toList();
         return articleRepository.findAll().stream().map(articleMapper::toDto).toList();
     }
 }

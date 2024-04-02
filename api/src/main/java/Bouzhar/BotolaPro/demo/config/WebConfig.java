@@ -21,7 +21,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedOrigins("http://localhost:4200")
                 .allowedOrigins("*")
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
-                .allowedHeaders("Origin", "Content-Type", "Accept");
+                .allowedHeaders("*");
         WebMvcConfigurer.super.addCorsMappings(registry);
     }
 }
