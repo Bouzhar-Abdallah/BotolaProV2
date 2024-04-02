@@ -1,0 +1,31 @@
+{
+    "articles": [
+      { 
+        "id": "1",
+        "cover_url": "https://res.cloudinary.com/doy8hfzvk/image/upload/v1709810454/f_img.kooora.comistoreimageskoooramhmed_azizjanuary112019_january_koo_1ahmed_hassan430050145_18399734464065884_7177621172744917336_n_oxfub4.webp",
+        "likes": 20,
+        "title": "FPL player price changes - rises, falls and top transfers for Gameweek 28",
+        "content": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusantium enim iure ducimus voluptas molestiae ut ipsam exercitationem! Facere ipsam laboriosam consectetur, quisquam obcaecati aliquam nam totam! Repellat dignissimos harum debitis.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Pariatur alias laboriosam necessitatibus voluptatibus assumenda voluptatem, harum incidunt doloribus excepturi culpa qui dolore blanditiis tempora saepe inventore laborum, architecto adipisci facere?Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur odit quam quasi accusantium tenetur dolore, reprehenderit temporibus atque accusamus sed autem modi, sapiente illum delectus natus, nisi nostrum esse aut?"
+        },
+      { 
+        "id": "2",
+        "cover_url": "https://res.cloudinary.com/doy8hfzvk/image/upload/v1709810454/f_img.kooora.comistoreimageskoooramhmed_aziz_january_1_1_2019_january_koo_1_ibrahim_samir_koo__wyda18_dquetm.jpg", 
+        "likes": 15,
+        "title": "Man City make history as they reach quarter-finals","content": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusantium enim iure ducimus voluptas molestiae ut ipsam exercitationem! Facere ipsam laboriosam consectetur, quisquam obcaecati aliquam nam totam! Repellat dignissimos harum debitis.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Pariatur alias laboriosam necessitatibus voluptatibus assumenda voluptatem, harum incidunt doloribus excepturi culpa qui dolore blanditiis tempora saepe inventore laborum, architecto adipisci facere?Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur odit quam quasi accusantium tenetur dolore, reprehenderit temporibus atque accusamus sed autem modi, sapiente illum delectus natus, nisi nostrum esse aut?"
+    },
+      { 
+        "id": "3",
+        "cover_url": "https://res.cloudinary.com/doy8hfzvk/image/upload/v1709810454/f_img.kooora.comistoreimageskoooracorr508koo_508112_p2fbfp.webp",
+        "likes": 43,
+        "title": "FPL player price changes - rises, falls and top transfers for Gameweek 28",
+        "content": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusantium enim iure ducimus voluptas molestiae ut ipsam exercitationem! Facere ipsam laboriosam consectetur, quisquam obcaecati aliquam nam totam! Repellat dignissimos harum debitis.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Pariatur alias laboriosam necessitatibus voluptatibus assumenda voluptatem, harum incidunt doloribus excepturi culpa qui dolore blanditiis tempora saepe inventore laborum, architecto adipisci facere?Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur odit quam quasi accusantium tenetur dolore, reprehenderit temporibus atque accusamus sed autem modi, sapiente illum delectus natus, nisi nostrum esse aut?"
+    }   
+    ],
+    "comments": [
+      { "id": "1", "text": "a comment about post 1", "postId": "1" },
+      { "id": "2", "text": "another comment about post 1", "postId": "1" }
+    ],
+    "profile": {
+      "name": "typicode"
+    }
+  } 
