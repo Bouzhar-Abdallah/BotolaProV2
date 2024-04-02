@@ -1,0 +1,20 @@
+@import 'styles/resets';
+@import 'styles/variables';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.main{
+    width: 80%;
+    margin: 0 auto;
+    
+    p{
+        font-weight: map-get($font_weights, bold);
+        &:hover{
+            color: $naples_yellow;
+        }
+    }
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
