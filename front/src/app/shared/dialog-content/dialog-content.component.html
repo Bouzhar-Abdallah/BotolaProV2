@@ -1,0 +1,76 @@
+<div class="bg-white bg-opacity-20 shadow ">
+    <div class="">
+
+        <body
+            class="text-3xl m-0 font-bold text-white bg-gradient-to-l from-blue-400 to-purple-500 py-5 px-3 rounded-t-sm">
+            New Article
+        </body>
+    </div>
+</div>
+<div class=" bg-slate-50">
+    <mat-dialog-content class="scrollbar  scrollbar-thumb-blue-400 scrollbar-track-slate-100">
+        <div class="">
+
+            <div>
+                <div class=" mx-auto p-2">
+                    <div class="">
+                        <div class="border-4 border-dashed border-gray-200 rounded-lg ">
+                            <div class="flex flex-col space-y-4">
+                                <div class="rounded-lg  bg-card text-card-foreground shadow-sm w-full" data-v0-t="card">
+
+                                    <div class="p-6">
+                                        <form [formGroup]="articleForm" (ngSubmit)="onSubmit()"
+                                        enctype="multipart/form-data">
+                                            <div class="grid gap-4">
+                                                <div>
+                                                    <label
+                                                        class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                                        for="title">Title
+                                                    </label>
+                                                    <input
+                                                        class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                                        id="title" placeholder="Enter the title"
+                                                        formControlName="title">
+                                                        
+                                                </div>
+                                                <div>
+                                                    <label
+                                                        class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                                        for="content">Content
+                                                    </label>
+                                                    <textarea
+                                                        class="flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 min-h-[300px]"
+                                                        id="content" placeholder="Enter the content"
+                                                        formControlName="content">
+                                                        >
+                                                    </textarea>
+                                                </div>
+                                                <div>
+                                                    <label
+                                                        class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                                        for="image">Upload File</label>
+                                                        <input
+                                                        class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                                        id="cover" type="file"
+                                                        formControlName="image">
+                                                    </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mat-dialog-content>
+    <div class="bg-gradient-to-l from-blue-400 to-purple-500 ">
+
+        <mat-dialog-actions align="end">
+            <button class="text-white" mat-button mat-dialog-close>Cancel</button>
+            <button class="text-white" mat-button [mat-dialog-close]="true" cdkFocusInitial >Install</button>
+            <button (click)="onSubmit()">Save</button>
+        </mat-dialog-actions>
+    </div>
+</div>
