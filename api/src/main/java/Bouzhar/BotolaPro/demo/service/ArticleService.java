@@ -79,6 +79,10 @@ public class ArticleService implements ArticleServiceC {
     @Override
     public ArticleDto findById(Long id) {
         Article article = articleRepository.findById(id).orElseThrow();
+        if (article.getImage() != null){
+
+            article.setImageUrl(getImageDataUrl(article.getImage()));
+        }
         return articleMapper.toDto(article);
     }
 

@@ -12,7 +12,7 @@ export class HomeArticlesComponent {
 
   articles: Article[]= [];
   public pageNumber: number = 0;
-public pageSize: number = 0;
+public pageSize: number = 30;
 
   ngOnInit(){
     this.articleService.loadAll().subscribe((articles)=>{

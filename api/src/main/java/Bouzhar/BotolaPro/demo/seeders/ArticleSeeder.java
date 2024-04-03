@@ -15,7 +15,7 @@ public class ArticleSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        seedData();
+        //seedData();
     }
 
     private void seedData() {

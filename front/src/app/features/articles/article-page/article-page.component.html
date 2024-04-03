@@ -1,0 +1,15 @@
+<div class="bg-white">
+    <div class="bg-gradient-to-r from-blue-400 to-purple-500 p-6">
+        <h1 *ngIf="article" class="text-5xl font-extrabold text-white">{{article.title}}</h1>
+        <span *ngIf="article" class="text-xs font-normal text-white">{{article.createdAt | date}}</span>
+        
+    </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <img *ngIf="article" src="{{article.imageUrl}}" alt="News" class="w-1/2 h-auto mx-auto my-5">
+        <p class="font-normal w-full mx-auto" style="line-height: 2;">
+            {{article.content}} 
+            
+        </p>
+    </div>
+</div>

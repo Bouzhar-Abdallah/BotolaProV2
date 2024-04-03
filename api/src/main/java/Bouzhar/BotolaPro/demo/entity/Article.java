@@ -43,6 +43,7 @@ public class Article {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
+    @Lob
     private String content;
     private String imageUrl;
     private Integer readCount;

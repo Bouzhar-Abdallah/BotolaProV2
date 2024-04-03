@@ -26,7 +26,7 @@
                 FILTERS</button>
         </div>
         <div class="grid grid-cols-1 gap-6 md:grid-cols-1 lg:grid-cols-1">
-            <div *ngFor="let article of articles" class="rounded-lg border bg-card text-card-foreground shadow-sm"
+            <a [routerLink]="['/articles', article.id]" *ngFor="let article of articles" class="rounded-lg border bg-card text-card-foreground shadow-sm"
                 data-v0-t="card">
                 <div class="flex">
                     <img src="{{article.imageUrl}}" alt="News" class="w-48 h-auto">
@@ -35,11 +35,11 @@
                             {{article.title}}
                         </h3>
                         <p class="text-sm text-muted-foreground">
-                        {{article.content}}
+                        {{article.createdAt | date}}
                         </p>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
     </div>
 </div>

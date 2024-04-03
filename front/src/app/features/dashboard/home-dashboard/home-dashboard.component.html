@@ -45,7 +45,7 @@
                                             </tr>
                                         </thead>
                                         <tbody class="[&amp;_tr:last-child]:border-0">
-                                            <tr *ngFor="let article of latestArticles"
+                                            <tr [routerLink]="['/articles', article.id]" *ngFor="let article of latestArticles"
                                                 class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
                                                 <td
                                                     class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 font-medium">
@@ -84,7 +84,7 @@
                 </div>
                 <div class="p-6">
                     <ul class="divide-y divide-gray-200">
-                        <li *ngFor="let article of mostReadArticles" class="py-4 flex">
+                        <li [routerLink]="['/articles', article.id]" *ngFor="let article of mostReadArticles" class="py-4 flex">
                             <div class="ml-3">
                                 <p class="text-sm font-medium text-gray-900">
                                 {{article.title}}    

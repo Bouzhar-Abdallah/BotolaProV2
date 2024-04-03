@@ -40,6 +40,6 @@ export class ArticlesService {
     return this.http.delete<Article>(this.levelsURL + id);
   }
   getById(id: number) {
-    return this.http.get<Article>(this.levelsURL + id);
+    return this.http.get<Article>(this.levelsURL +'/'+ id);
   }
 }
