@@ -73,6 +73,7 @@ public class ArticleService implements ArticleServiceC {
 
     @Override
     public void deleteById(Long id) {
+        articleRepository.findById(id).orElseThrow(() -> new RuntimeException("Article not found"));
         articleRepository.deleteById(id);
     }
 
