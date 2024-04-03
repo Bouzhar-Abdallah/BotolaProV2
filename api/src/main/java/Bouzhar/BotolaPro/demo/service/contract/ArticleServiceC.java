@@ -13,4 +13,5 @@ public interface ArticleServiceC extends CrudService<ArticleDto, Long>{
     List<ArticleLight> getLatestArticles();
     List<ArticleLight> getMostReadArticles();
     Page<ArticleDto> getAll(Pageable pageable);
+    List<ArticleDto> searchByTitle(String title);
 }

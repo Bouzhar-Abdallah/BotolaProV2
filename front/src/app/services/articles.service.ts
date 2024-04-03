@@ -37,9 +37,12 @@ export class ArticlesService {
     return this.http.put<Article>(this.levelsURL + article.id, article, this.httpOptions);
   }
   delete(id: number) {
-    return this.http.delete<Article>(this.levelsURL + id);
+    return this.http.delete<Article>(this.levelsURL +'/'+ id);
   }
   getById(id: number) {
     return this.http.get<Article>(this.levelsURL +'/'+ id);
+  }
+  search(string:string){
+    return this.http.get<Article>(this.levelsURL +'/search/'+ string);
   }
 }

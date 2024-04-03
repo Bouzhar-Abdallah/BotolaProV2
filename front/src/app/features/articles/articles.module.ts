@@ -4,6 +4,7 @@ import { HomeArticlesComponent } from './home-articles/home-articles.component';
 import { ArticlePageComponent } from './article-page/article-page.component';
 import { RouterModule } from '@angular/router';
 import { routes } from 'src/app/routing/routes';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -15,6 +16,7 @@ import { routes } from 'src/app/routing/routes';
   imports: [
     CommonModule,
     RouterModule.forRoot(routes),
+    FormsModule
   ]
 })
 export class ArticlesModule { }

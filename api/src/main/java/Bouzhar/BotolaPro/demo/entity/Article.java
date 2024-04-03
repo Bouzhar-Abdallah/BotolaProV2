@@ -50,6 +50,7 @@ public class Article {
     @CreationTimestamp
     private LocalDateTime createdAt;
     @Lob
+    @Basic(fetch = FetchType.EAGER)
     private byte[] image;
     private Boolean isApproved;
     @ManyToMany

@@ -10,15 +10,23 @@ import { ArticlesService } from 'src/app/services/articles.service';
 export class HomeArticlesComponent {
   constructor(private articleService: ArticlesService) {}
 
-  articles: Article[]= [];
+  articles: Article[] = [];
   public pageNumber: number = 0;
-public pageSize: number = 30;
-
-  ngOnInit(){
-    this.articleService.loadAll().subscribe((articles)=>{
-      this.articles = articles.content
-    this.pageNumber = articles.pageable.pageNumber
-    this.pageSize = articles.pageable.pageSize
+  public pageSize: number = 30;
+  public searchText: string = '';
+  ngOnInit() {
+    this.loadArticles();
+  }
+  loadArticles() {
+    this.articleService.loadAll().subscribe((articles) => {
+      this.articles = articles.content;
+      this.pageNumber = articles.pageable.pageNumber;
+      this.pageSize = articles.pageable.pageSize;
+    });
+  }
+  search() {
+    this.articleService.search(this.searchText).subscribe((articles)=>{
+      console.log(articles)
     })
   }
 }

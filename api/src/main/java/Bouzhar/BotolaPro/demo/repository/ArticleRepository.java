@@ -16,4 +16,6 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     @Query("SELECT new Bouzhar.BotolaPro.demo.dto.ArticleLight(a.id, a.title, a.readCount, a.createdAt, a.isApproved) FROM Article a ORDER BY a.readCount DESC")
     List<ArticleLight> findAllLightByOrderByReadCountDesc(Pageable pageable);
+
+    List<Article> findByTitleContaining(String title);
 }

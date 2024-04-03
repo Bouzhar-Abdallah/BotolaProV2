@@ -41,6 +41,10 @@ public class ArticleController {
     public ResponseEntity<List<ArticleLight>> getMostReadArticles() {
         return ResponseEntity.ok(articleService.getMostReadArticles());
     }
+    @GetMapping(path = "search/{title}")
+    public ResponseEntity<List<ArticleDto>> searchArticles(@PathVariable("title") String title) {
+        return ResponseEntity.ok(articleService.searchByTitle(title));
+    }
     @GetMapping(path = "{articleId}")
     public ResponseEntity<ArticleDto> getArticle(@PathVariable("articleId") Long articleId) {
         System.out.println("id is : " + articleId);

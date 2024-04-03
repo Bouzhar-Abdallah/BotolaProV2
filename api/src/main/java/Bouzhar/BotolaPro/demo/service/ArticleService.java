@@ -87,6 +87,21 @@ public class ArticleService implements ArticleServiceC {
     }
 
     @Override
+    public List<ArticleDto> searchByTitle(String title) {
+        System.out.println("searching for : " + title);
+        List<Article> articles = articleRepository.findByTitleContaining(title);
+        System.out.println(articles.size());
+        articles.stream().map(article -> {
+            if (article.getImage() != null){
+
+                article.setImageUrl(getImageDataUrl(article.getImage()));
+            }
+            return article;
+        }).toList();
+        return articles.stream().map(articleMapper::toDto).toList();
+    }
+
+    @Override
     public Page<ArticleDto> getAll(Pageable pageable) {
         Page<Article> articles= articleRepository.findAll(pageable);
         articles.stream().map(article -> {

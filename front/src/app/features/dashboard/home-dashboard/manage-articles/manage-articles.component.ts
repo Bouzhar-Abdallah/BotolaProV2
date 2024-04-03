@@ -36,4 +36,7 @@ public totalPages!: number;
     this.pageNumber = pageNu
     this.getArticles()
   }
+  delete(id:number){
+    this.acrticleService.delete(id).subscribe()
+  }
 }
