@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { API_BASE_URL } from '../globals/globals';
-import { Article } from '../models/article';
+import { Article, PagesArticle } from '../models/article';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +16,18 @@ export class ArticlesService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json'}),
   };
 
-  loadAll() {
-    return this.http.get<Article[]>(this.levelsURL + '/getAll');
+  loadAll(pageNo: number = 0, pageSize: number=10) {
+    let params = new HttpParams();
+
+    params = params.append('pageNo', pageNo.toString());
+    params = params.append('pageSize', pageSize.toString());
+    return this.http.get<PagesArticle>(this.levelsURL + '/getAll',{ params: params });
+  }
+  loadLatest() {
+    return this.http.get<Article[]>(this.levelsURL + '/latest');
+  }
+  loadMostRead() {
+    return this.http.get<Article[]>(this.levelsURL + '/mostRead');
   }
   add(article: FormData) {
     console.log("articleService")

@@ -2,7 +2,10 @@ package Bouzhar.BotolaPro.demo.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -42,6 +45,9 @@ public class Article {
     private String title;
     private String content;
     private String imageUrl;
+    private Integer readCount;
+    @CreationTimestamp
+    private LocalDateTime createdAt;
     @Lob
     private byte[] image;
     private Boolean isApproved;

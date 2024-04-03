@@ -16,9 +16,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
+import { PipesModule } from './pipes/pipes.module';
+
+
 @NgModule({
   declarations: [
     AppComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -26,6 +30,7 @@ import { FormsModule } from '@angular/forms';
     SharedModule,
     HttpClientModule,
     CommonModule,
+    PipesModule,
     ArticlesModule,
     ChampionshipModule,
     DashboardModule,

@@ -11,11 +11,14 @@ export class HomeArticlesComponent {
   constructor(private articleService: ArticlesService) {}
 
   articles: Article[]= [];
+  public pageNumber: number = 0;
+public pageSize: number = 0;
 
   ngOnInit(){
     this.articleService.loadAll().subscribe((articles)=>{
-      this.articles = articles
-      console.log(articles)
+      this.articles = articles.content
+    this.pageNumber = articles.pageable.pageNumber
+    this.pageSize = articles.pageable.pageSize
     })
   }
 }

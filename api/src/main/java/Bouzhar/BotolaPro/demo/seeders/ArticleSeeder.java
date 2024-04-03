@@ -20,8 +20,8 @@ public class ArticleSeeder implements CommandLineRunner {
 
     private void seedData() {
         if(articleRepository.count() == 0){
-            articleRepository.save(new Article("title 1","content 1","image/url",false));
-            articleRepository.save(new Article("title 2","content 2","image/url",false));
+            articleRepository.save(new Article("Coupe du Trône : le match MCO-RAC ouvre le bal des huitièmes de finale","content 1","image/url",false));
+            articleRepository.save(new Article("Coupe de la CAF : la RSB prend une belle option pour la manche retour face au club libyen d’Abu Salim","content 2","image/url",false));
         }
     }
 }

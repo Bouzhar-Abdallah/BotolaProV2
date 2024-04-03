@@ -1,0 +1,6 @@
+.current {
+    @apply px-4 py-2 text-white transition-colors duration-150 bg-indigo-700 border border-r-0 border-indigo-500 
+}
+.other {
+    @apply px-4 py-2 text-indigo-500 transition-colors duration-150 bg-white border border-r-0 border-indigo-500 
+}
