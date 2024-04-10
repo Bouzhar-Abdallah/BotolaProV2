@@ -25,6 +25,10 @@ services:
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
     depends_on:
       - postgres_db
+  front:
+    build: ./front
+    ports:
+      - '4200:4200'
 
 volumes:
   postgres_db:
