@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  postgres_db:
+    image: postgres:latest
+    container_name: Database
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=hatikmi
+    ports:
+      - '5438:5432'
+    volumes:
+      - postgres_db:/var/lib/postgresql/data
+
+  app:
+    build: ./api
+    ports:
+      - '8082:8082'
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres_db:5432/botola_pro
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=hatikmi
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=hatikmi
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    depends_on:
+      - postgres_db
+
+volumes:
+  postgres_db:
+    driver: local
