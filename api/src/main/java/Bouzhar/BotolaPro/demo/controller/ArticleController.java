@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,10 +27,12 @@ public class ArticleController {
         this.articleService = articleService;
     }
 
+
     @GetMapping(path = "getAll")
     public ResponseEntity<Page<ArticleDto>> getAllArticles(@RequestParam(defaultValue = "0") Integer pageNo,
                                                            @RequestParam(defaultValue = "1") Integer pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
+        System.out.println("controller");
         return ResponseEntity.ok(articleService.getAll(pageable));
     }
 
