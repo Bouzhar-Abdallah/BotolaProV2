@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
+import { Token } from '../models/token';
 
 @Injectable({
   providedIn: 'root',
@@ -38,5 +39,51 @@ export class AuthService {
   }
   getAccessToken(){
     return localStorage.getItem("token")
+  }
+  isAuthenticated(){
+    return localStorage.getItem("token")
+  }
+
+  isUser(){
+    
+    let token : string | null = localStorage.getItem("token")
+    if (!token) {
+      return false
+    }else{
+      let decoded_jwt = jwtDecode<Token>(token)
+      if (decoded_jwt.scope != "ROLE_USER") {
+        return false
+      }
+      return true
+    }
+
+  }
+  isAdmin(){
+    
+    let token : string | null = localStorage.getItem("token")
+    if (!token) {
+      return false
+    }else{
+      let decoded_jwt = jwtDecode<Token>(token)
+      if (decoded_jwt.scope != "ROLE_ADMIN") {
+        return false
+      }
+      return true
+    }
+
+  }
+  isRedactor(){
+    
+    let token : string | null = localStorage.getItem("token")
+    if (!token) {
+      return false
+    }else{
+      let decoded_jwt = jwtDecode<Token>(token)
+      if (decoded_jwt.scope != "ROLE_REDACTOR") {
+        return false
+      }
+      return true
+    }
+
   }
 }

@@ -20,11 +20,17 @@ import { PipesModule } from './pipes/pipes.module';
 import { LoginComponent } from './features/auth/login/login.component';
 import { AuthModule } from './features/auth/auth.module';
 import { TokenHttpInterceptor } from './interceptors/token-http.interceptor';
+import { UserComponent } from './temp/user/user.component';
+import { AdminComponent } from './temp/admin/admin.component';
+import { RedactorComponent } from './temp/redactor/redactor.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    UserComponent,
+    AdminComponent,
+    RedactorComponent,
 
   ],
   imports: [

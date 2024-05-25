@@ -4,6 +4,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { RouterModule } from '@angular/router';
 import { routes } from '../routing/routes';
 import { DialogContentComponent } from './dialog-content/dialog-content.component';
+import { UnAuthorizedComponent } from './un-authorized/un-authorized.component';
 
 
 
@@ -11,6 +12,7 @@ import { DialogContentComponent } from './dialog-content/dialog-content.componen
 @NgModule({
   declarations: [
     NavbarComponent,
+    UnAuthorizedComponent,
     
   ],
   imports: [

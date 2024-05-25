@@ -7,6 +7,13 @@ import { ManageArticlesComponent } from "../features/dashboard/home-dashboard/ma
 import { ArticlePageComponent } from "../features/articles/article-page/article-page.component";
 import { LoginComponent } from "../features/auth/login/login.component";
 import { authentificationGuard } from "../guards/authentification.guard";
+import { AdminComponent } from "../temp/admin/admin.component";
+import { UserComponent } from "../temp/user/user.component";
+import { RedactorComponent } from "../temp/redactor/redactor.component";
+import { UnAuthorizedComponent } from "../shared/un-authorized/un-authorized.component";
+import { userGuard } from "../guards/user.guard";
+import { adminGuard } from "../guards/admin.guard";
+import { redactorGuard } from "../guards/redactor.guard";
 
 
 
@@ -15,8 +22,43 @@ export const routes: Routes =[
     { path: 'home', component: PageComponent , data: {animation: 'newQuestion'} },
     { path: 'championship', component: HomeComponent},
     { path: 'articles', component: HomeArticlesComponent},
+
     /* { path: 'dashboard/acceuil', component: HomeDashboardComponent},
     { path: 'dashboard/managment', component: ManageArticlesComponent}, */
+    
+    //{ path: 'admin/home', component: AdminComponent},
+    //{ path: 'user/home', component: UserComponent},
+    //{ path: 'redactor/home', component: RedactorComponent},
+    {
+      path: 'user',
+      canActivateChild: [userGuard],
+      children:[
+        {
+          path: 'home',
+          component: UserComponent
+        }
+      ]
+    },
+    {
+      path: 'admin',
+      canActivateChild: [adminGuard],
+      children:[
+        {
+          path: 'home',
+          component: AdminComponent
+        }
+      ]
+    },
+    {
+      path: 'redactor',
+      canActivateChild: [redactorGuard],
+      children:[
+        {
+          path: 'home',
+          component: RedactorComponent
+        }
+      ]
+    },
     {
       path: 'dashboard',
       canActivate: [authentificationGuard], // Utilisation du guard
@@ -33,6 +75,7 @@ export const routes: Routes =[
     },
     { path: 'articles/:id', component: ArticlePageComponent},
     { path: 'login', component: LoginComponent},
+    { path: 'unauth', component: UnAuthorizedComponent},
  
     
     { path: '', redirectTo: '/championship', pathMatch:'full'}
