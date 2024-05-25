@@ -5,18 +5,20 @@ import { ArticlePageComponent } from './article-page/article-page.component';
 import { RouterModule } from '@angular/router';
 import { routes } from 'src/app/routing/routes';
 import { FormsModule } from '@angular/forms';
-
+import { PaginatorModule } from 'primeng/paginator';
 
 
 @NgModule({
   declarations: [
     HomeArticlesComponent,
-    ArticlePageComponent
+    ArticlePageComponent,
+    
   ],
   imports: [
     CommonModule,
     RouterModule.forRoot(routes),
-    FormsModule
+    FormsModule,
+    PaginatorModule
   ]
 })
 export class ArticlesModule { }

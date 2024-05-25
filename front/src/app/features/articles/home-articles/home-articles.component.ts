@@ -13,7 +13,11 @@ export class HomeArticlesComponent {
   articles: Article[] = [];
   public pageNumber: number = 0;
   public pageSize: number = 30;
+  public first: number = 2;
+  public rows: number = 17;
+
   public searchText: string = '';
+
   ngOnInit() {
     this.loadArticles();
   }
@@ -29,4 +33,5 @@ export class HomeArticlesComponent {
       console.log(articles)
     })
   }
+  onPageChangePage(event: any){}
 }
