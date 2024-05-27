@@ -1,13 +1,18 @@
 package Bouzhar.BotolaPro.demo.controller;
 
 import Bouzhar.BotolaPro.demo.dto.ArticleDto;
+import Bouzhar.BotolaPro.demo.dto.ArticleLight;
 import Bouzhar.BotolaPro.demo.dto.ArticleReq;
 import Bouzhar.BotolaPro.demo.dto.ArticleWithImage;
 import Bouzhar.BotolaPro.demo.entity.Article;
 import Bouzhar.BotolaPro.demo.service.ArticleService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,11 +27,27 @@ public class ArticleController {
         this.articleService = articleService;
     }
 
+
     @GetMapping(path = "getAll")
-    public ResponseEntity<List<ArticleDto>> getAllArticles() {
-        return ResponseEntity.ok(articleService.getAll());
+    public ResponseEntity<Page<ArticleDto>> getAllArticles(@RequestParam(defaultValue = "0") Integer pageNo,
+                                                           @RequestParam(defaultValue = "1") Integer pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        System.out.println("controller");
+        return ResponseEntity.ok(articleService.getAll(pageable));
     }
 
+    @GetMapping(path = "latest")
+    public ResponseEntity<List<ArticleLight>> getLatestArticles() {
+        return ResponseEntity.ok(articleService.getLatestArticles());
+    }
+    @GetMapping(path = "mostRead")
+    public ResponseEntity<List<ArticleLight>> getMostReadArticles() {
+        return ResponseEntity.ok(articleService.getMostReadArticles());
+    }
+    @GetMapping(path = "search/{title}")
+    public ResponseEntity<List<ArticleDto>> searchArticles(@PathVariable("title") String title) {
+        return ResponseEntity.ok(articleService.searchByTitle(title));
+    }
     @GetMapping(path = "{articleId}")
     public ResponseEntity<ArticleDto> getArticle(@PathVariable("articleId") Long articleId) {
         System.out.println("id is : " + articleId);
@@ -44,10 +65,7 @@ public class ArticleController {
         return ResponseEntity.status(HttpStatus.CREATED).body(articleService.create_(articleWithImage));
     }
 
-/*    @PostMapping(path = "test")
-    public String addTest(MultipartFile file) {
-        return articleService.getImageDataUrl();
-    }*/
+
 
     @PutMapping()
     public ResponseEntity<ArticleDto> updateArticle(@RequestBody ArticleDto articleDto) {

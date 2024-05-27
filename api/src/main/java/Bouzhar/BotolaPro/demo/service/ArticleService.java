@@ -1,11 +1,15 @@
 package Bouzhar.BotolaPro.demo.service;
 
 import Bouzhar.BotolaPro.demo.dto.ArticleDto;
+import Bouzhar.BotolaPro.demo.dto.ArticleLight;
 import Bouzhar.BotolaPro.demo.dto.ArticleWithImage;
 import Bouzhar.BotolaPro.demo.entity.Article;
 import Bouzhar.BotolaPro.demo.mapping.ArticleMapper;
 import Bouzhar.BotolaPro.demo.repository.ArticleRepository;
 import Bouzhar.BotolaPro.demo.service.contract.ArticleServiceC;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,12 +19,7 @@ import java.util.List;
 @Service
 
 public class ArticleService implements ArticleServiceC {
-    @Override
-    public Article saveAttachment(MultipartFile file) throws Exception {
 
-
-        return null;
-    }
 
     private final ArticleRepository articleRepository;
     private final ArticleMapper articleMapper;
@@ -38,7 +37,9 @@ public class ArticleService implements ArticleServiceC {
         return articleMapper.toDto(articleRepository.save(newArticleEntity));
     }
     public ArticleDto create_(ArticleWithImage dto) {
+
         ArticleDto articleDto = dto.getArticleDto();
+        articleDto.setIsApproved(false);
         MultipartFile image = dto.getImage();
 
         Article newArticleEntity = articleMapper.toEntity(articleDto);
@@ -72,13 +73,46 @@ public class ArticleService implements ArticleServiceC {
 
     @Override
     public void deleteById(Long id) {
+        articleRepository.findById(id).orElseThrow(() -> new RuntimeException("Article not found"));
         articleRepository.deleteById(id);
     }
 
     @Override
     public ArticleDto findById(Long id) {
         Article article = articleRepository.findById(id).orElseThrow();
+        if (article.getImage() != null){
+
+            article.setImageUrl(getImageDataUrl(article.getImage()));
+        }
         return articleMapper.toDto(article);
+    }
+
+    @Override
+    public List<ArticleDto> searchByTitle(String title) {
+        System.out.println("searching for : " + title);
+        List<Article> articles = articleRepository.findByTitleContaining(title);
+        System.out.println(articles.size());
+        articles.stream().map(article -> {
+            if (article.getImage() != null){
+
+                article.setImageUrl(getImageDataUrl(article.getImage()));
+            }
+            return article;
+        }).toList();
+        return articles.stream().map(articleMapper::toDto).toList();
+    }
+
+    @Override
+    public Page<ArticleDto> getAll(Pageable pageable) {
+        Page<Article> articles= articleRepository.findAll(pageable);
+        articles.stream().map(article -> {
+            if (article.getImage() != null){
+
+                article.setImageUrl(getImageDataUrl(article.getImage()));
+            }
+            return article;
+        }).toList();
+        return articleRepository.findAll(pageable).map(articleMapper::toDto);
     }
 
     @Override
@@ -92,5 +126,17 @@ public class ArticleService implements ArticleServiceC {
             return article;
         }).toList();
         return articleRepository.findAll().stream().map(articleMapper::toDto).toList();
+    }
+
+    @Override
+    public List<ArticleLight> getLatestArticles() {
+        Pageable topFive = PageRequest.of(0, 5);
+        return articleRepository.findAllLightByOrderByCreatedAtDesc(topFive);
+    }
+
+    @Override
+    public List<ArticleLight> getMostReadArticles() {
+        Pageable topFive = PageRequest.of(0, 3);
+        return articleRepository.findAllLightByOrderByReadCountDesc(topFive);
     }
 }

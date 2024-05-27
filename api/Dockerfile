@@ -1,11 +1,13 @@
-FROM maven:3.9-amazoncorretto-21 AS build
-VOLUME /tmp
-WORKDIR /app
-COPY . .
-RUN mvn clean install -DskipTests
 
-FROM openjdk:21
-WORKDIR /app
-COPY --from=build app/target/demo-0.0.1-SNAPSHOT.jar app.jar
-EXPOSE 8084
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+FROM openjdk:17
+# the JAR file path
+ARG JAR_FILE=target/*.jar
+
+# Copy the JAR file from the build context into the Docker image
+COPY ${JAR_FILE} application.jar
+
+CMD apt-get update -y
+
+# Set the default command to run the Java application
+ENTRYPOINT ["java", "-Xmx2048M", "-jar", "/application.jar"]
+

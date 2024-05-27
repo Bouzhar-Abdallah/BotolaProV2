@@ -23,6 +23,7 @@ export class DialogContentComponent implements OnInit {
     private articleService: ArticlesService
   ) {}
   articleForm!: FormGroup;
+  close: boolean = false;
   ngOnInit(): void {
     this.articleForm = this.fb.group({
       title: ['', Validators.required],
@@ -58,7 +59,9 @@ export class DialogContentComponent implements OnInit {
     
     // Send POST request
     this.articleService.add(formData).subscribe((res) => {
-      console.log('Response:', res);
+      
+        this.close = true
+      
     });
   }
 }

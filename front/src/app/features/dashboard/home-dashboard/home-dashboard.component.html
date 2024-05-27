@@ -1,62 +1,32 @@
+<div class="bg-gray-100 ">
+    <app-navbar-dashboard></app-navbar-dashboard>
 
 
-<div class="bg-gray-100">
-    <nav class="bg-white shadow">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex">
-                    
-                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8"><a
-                            class="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                            href="#">
-                            Dashboard
-                        </a><a
-                            class="text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                            href="#">
-                            Team
-                        </a><a
-                            class="text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                            href="#">
-                            Projects
-                        </a><a
-                            class="text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                            href="#">
-                            Calendar
-                        </a></div>
+    <main class="container mx-auto  p-4">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <div class="rounded-lg border bg-card text-card-foreground shadow-sm col-span-2" data-v0-t="card">
+                <div class="flex flex-col space-y-1.5 p-6">
+                    <h3 class="text-2xl font-semibold whitespace-nowrap leading-none tracking-tight">
+                        Me dérniers articles
+                    </h3>
                 </div>
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <button
-                        (click)="openDialog('100ms', '300ms')"
-                            class="justify-center whitespace-nowrap ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 relative inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
-                            Create Article
-                        </button>
-                    </div>
+                <div class="p-6">
+                    <div dir="ltr" class="relative overflow-hidden h-[300px]"
+                        style="position: relative; --radix-scroll-area-corner-width: 0px; --radix-scroll-area-corner-height: 0px;">
+                        <style>
+                            [data-radix-scroll-area-viewport] {
+                                scrollbar-width: none;
+                                -ms-overflow-style: none;
+                                -webkit-overflow-scrolling: touch;
+                            }
 
-                </div>
-            </div>
-        </div>
-    </nav>
-    <header class="bg-white shadow">
-        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-            <h1 class="text-3xl font-bold text-gray-900">
-                News Articles Dashboard
-            </h1>
-        </div>
-    </header>
-    <main>
-        <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-            <div class="px-4 py-6 sm:px-0">
-                <div class="border-4 border-dashed border-gray-200 rounded-lg h-96">
-                    <div class="flex flex-col space-y-4">
-                        <div class="rounded-lg border bg-card text-card-foreground shadow-sm w-full" data-v0-t="card">
-                            <div class="flex flex-col space-y-1.5 p-6">
-                                <h3 class="text-2xl font-semibold whitespace-nowrap leading-none tracking-tight">Latest
-                                    News</h3>
-                                <p class="text-sm text-muted-foreground">Review the latest articles and manage
-                                    publication.</p>
-                            </div>
-                            <div class="p-6">
+                            [data-radix-scroll-area-viewport]::-webkit-scrollbar {
+                                display: none
+                            }
+                        </style>
+                        <div data-radix-scroll-area-viewport="" class="h-full w-full rounded-[inherit]"
+                            style="overflow: hidden scroll;">
+                            <div style="min-width: 100%; display: table;">
                                 <div class="relative w-full overflow-auto">
                                     <table class="w-full caption-bottom text-sm">
                                         <thead class="[&amp;_tr]:border-b">
@@ -64,52 +34,35 @@
                                                 class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
                                                 <th
                                                     class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                                                    Title</th>
-                                                <th
-                                                    class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                                                    Category</th>
+                                                    Titre</th>
+                                             
                                                 <th
                                                     class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
                                                     Status</th>
                                                 <th
                                                     class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                                                    Date</th>
-                                                <th
-                                                    class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                                                    Actions</th>
+                                                    Date publié</th>
                                             </tr>
                                         </thead>
                                         <tbody class="[&amp;_tr:last-child]:border-0">
-                                            <tr
+                                            <tr [routerLink]="['/articles', article.id]" *ngFor="let article of latestArticles"
                                                 class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
-                                                <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">Is Pep
-                                                    right about Foden being this season's best player?</td>
-                                                <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">Sports
+                                                <td
+                                                    class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 font-medium">
+                                                    {{article.title}}
                                                 </td>
-                                                <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">Published
+                                                
+                                                <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
+                                                    <div
+                                                        class="inline-flex items-center rounded-full whitespace-nowrap border px-2.5 py-0.5 w-fit text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80">
+                                                    {{article.isApproved ? "Approuvé" : "refusé"}}
+                                                    </div>
                                                 </td>
-                                                <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">Mar 6,
-                                                    2023</td>
-                                                <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0"><button
-                                                        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2">Edit</button><button
-                                                        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-destructive text-destructive-foreground hover:bg-destructive/90 h-10 px-4 py-2">Delete</button>
+                                                <td class="p-4 w-[120px] align-middle [&amp;:has([role=checkbox])]:pr-0">
+                                                    {{article.createdAt | date }}
                                                 </td>
                                             </tr>
-                                            <tr
-                                                class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
-                                                <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">Shearer:
-                                                    Nunez is now delivering in big moments</td>
-                                                <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">Sports
-                                                </td>
-                                                <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">Published
-                                                </td>
-                                                <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">Mar 5,
-                                                    2023</td>
-                                                <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0"><button
-                                                        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2">Edit</button><button
-                                                        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-destructive text-destructive-foreground hover:bg-destructive/90 h-10 px-4 py-2">Delete</button>
-                                                </td>
-                                            </tr>
+                                            
                                         </tbody>
                                     </table>
                                 </div>
@@ -117,7 +70,34 @@
                         </div>
                     </div>
                 </div>
+                <div class="items-center p-6 flex justify-between">
+                    <a routerLink="/dashboard/managment"
+                        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2">View
+                        All</a>
+                </div>
+            </div>
+            <div class="rounded-lg border bg-card text-card-foreground shadow-sm w-full" data-v0-t="card">
+                <div class="flex flex-col space-y-1.5 p-6">
+                    <h3 class="text-2xl font-semibold whitespace-nowrap leading-none tracking-tight">
+                        les plus lus
+                    </h3>
+                </div>
+                <div class="p-6">
+                    <ul class="divide-y divide-gray-200">
+                        <li [routerLink]="['/articles', article.id]" *ngFor="let article of mostReadArticles" class="py-4 flex">
+                            <div class="ml-3">
+                                <p class="text-sm font-medium text-gray-900">
+                                {{article.title}}    
+                                </p>
+                                <p class="text-sm text-gray-500">Reads: {{article.readCount}}</p>
+                            </div>
+                        </li>
+                        
+                    </ul>
+                </div>
             </div>
         </div>
     </main>
+
 </div>
+

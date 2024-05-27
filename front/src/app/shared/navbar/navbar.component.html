@@ -5,26 +5,34 @@
                 alt="Premier League Logo" class="h-10" width="40" height="40"
                 style="aspect-ratio: 40 / 40; object-fit: cover;">
             <nav class="hidden lg:flex space-x-6">
-                <a routerLink="/home" class="text-white hover:text-gray-300">home</a>
-                <a routerLink="/fantazy" class="text-white hover:text-gray-300">Fantasy</a>
-                <a routerLink="/championship" class="text-white hover:text-gray-300">championship</a>
-                <a routerLink="/articles" class="capitalize text-white hover:text-gray-300">acrticles</a>
-                <a routerLink="/dashboard" class="text-white hover:text-gray-300">Dashboard</a>
+                <a href="http://localhost:5176/" class="text-white hover:text-gray-300">home</a>
+
+                <a routerLink="/dashboard/acceuil" class="text-white hover:text-gray-300">Dashboard</a>
+                <a routerLink="/articles" class="text-white hover:text-gray-300">Articles</a>
             </nav>
+        </div>
+        <div class="px-3 py-2  flex gap-4 justify-between mx-10">
+            <button class="mx-2 px-3 py-2 rounded-md bg-cyan-300" routerLink="/admin/home">admin</button>
+            <button class="mx-2 px-3 py-2 rounded-md bg-cyan-300" routerLink="/redactor/home">redactor</button>
+            <button class="mx-2 px-3 py-2 rounded-md bg-cyan-300" routerLink="/user/home">user</button>
         </div>
         <div class="flex items-center space-x-4">
 
             <button
-                class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 text-white bg-[#0073e6] hover:bg-[#005bb5]">Sign
-                in</button>
-            <div class="relative"><input
-                    class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 pl-10"
-                    placeholder="Search" type="search"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <path d="m21 21-4.3-4.3"></path>
-                </svg></div>
+            routerLink="login"
+                class=" items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 text-white bg-[#0073e6] hover:bg-[#005bb5]">
+            Login
+            </button>
+            <button
+                class=" items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 text-white bg-[#0073e6] hover:bg-[#005bb5]">
+            Logout
+            </button>
+            <button
+            routerLink="register"
+                class=" items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 text-white bg-[#0073e6] hover:bg-[#005bb5]">
+            Inscription
+            </button>
+
         </div>
     </div>
 </header>

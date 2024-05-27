@@ -2,7 +2,10 @@ package Bouzhar.BotolaPro.demo.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -40,9 +43,14 @@ public class Article {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
+    @Lob
     private String content;
     private String imageUrl;
+    private Integer readCount;
+    @CreationTimestamp
+    private LocalDateTime createdAt;
     @Lob
+    @Basic(fetch = FetchType.EAGER)
     private byte[] image;
     private Boolean isApproved;
     @ManyToMany

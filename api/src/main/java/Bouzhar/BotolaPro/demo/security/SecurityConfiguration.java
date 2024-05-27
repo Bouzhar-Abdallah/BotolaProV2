@@ -1,149 +1,92 @@
 package Bouzhar.BotolaPro.demo.security;
 
-import Bouzhar.BotolaPro.demo.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
+import com.nimbusds.jose.jwk.source.ImmutableSecret;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.security.web.csrf.CsrfTokenRepository;
+import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.JwtEncoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
+
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+
+import javax.crypto.spec.SecretKeySpec;
 import java.util.List;
 
-/**
- * Configuration class for Spring Security settings.
- * This class configures the security aspects of the application, including CORS settings,
- */
-@Configuration
+
 @EnableWebSecurity
-@EnableMethodSecurity
-@RequiredArgsConstructor
+@Configuration
+@EnableMethodSecurity(prePostEnabled = true)
+
 public class SecurityConfiguration {
+    @Value("${jwt.secret}")
+    private String secretKey;
+    private CustomUserDetailsService userDetailsService;
 
-    private final UserRepository repository;
-
-    private static final List<String> ALLOW_ORIGIN = List.of(
-            "http://localhost:4200",
-            "https://e044-197-230-250-154.ngrok-free.app"
-    );
-    private static final List<String> ALLOW_METHODS = List.of(
-            "GET",
-            "POST",
-            "PUT",
-            "DELETE",
-            "OPTIONS"
-    );
-    private static final List<String> ALLOW_HEAD = List.of(
-            "Access-Control-Allow-Origin",
-            "Access-Control-Allow-Methods",
-            "Access-Control-Allow-Headers",
-            "Access-Control-Max-Age",
-            "Access-Control-Request-Headers",
-            "Access-Control-Request-Method",
-            "Access-Control-Allow-Credentials",
-            "Access-Control-Expose-Headers",
-            "accept",
-            "authorization",
-            "content-type",
-            "X-CSRF-TOKEN",
-            "x-xsrf-token",
-            "user-agent",
-            "x-requested-with",
-            "ngrok-skip-browser-warning",
-            "Origin",
-            "Cache-Control",
-            "Content-Type",
-            "Authorization",
-            "Accept",
-            "X-Requested-With"
-    );
-
-
-    /**
-     * Creates and configures the CORS policy for the application.
-     * This policy defines the allowed origins, HTTP methods, and headers for cross-origin requests.
-     *
-     * @return A CorsConfigurationSource object encapsulating the CORS configuration.
-     */
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(ALLOW_ORIGIN);
-        configuration.setAllowedMethods(ALLOW_METHODS);
-        configuration.setAllowedHeaders(ALLOW_HEAD);
-        configuration.setAllowCredentials(true);
-        configuration.setMaxAge(3600L);
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
+    public SecurityConfiguration(CustomUserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
     }
 
-    /**
-     * Creates and configures the CSRF token repository.
-     * This repository is responsible for storing and managing CSRF tokens,
-     * using cookies as the storage mechanism.
-     *
-     */
     @Bean
-    public CsrfTokenRepository csrfTokenRepository() {
-        CookieCsrfTokenRepository repository = CookieCsrfTokenRepository.withHttpOnlyFalse();
-        repository.setCookiePath("/");
-        return repository;
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+        return http.csrf(AbstractHttpConfigurer::disable)
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/api/v1/auth/**").permitAll())
+                .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
+                .cors(Customizer.withDefaults())
+                .oauth2ResourceServer(oa -> oa.jwt(Customizer.withDefaults()))
+                .build();
+        //method is enabling the OAuth 2.0 Resource Server functionality in Spring Security
+        //configuring the application to act as an OAuth 2.0 Resource Server
+        //the application is able to authenticate requests via an incoming token
+
     }
 
-    /**
-     * Creates a custom implementation of UserDetailsService to load user details by email.
-     *
-     * @return UserDetailsService implementation
-     */
     @Bean
-    public UserDetailsService userDetailsService() {
-        return username -> repository.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    JwtEncoder jwtEncoder() {
+        return new NimbusJwtEncoder(new ImmutableSecret<>(secretKey.getBytes()));
     }
 
-    /**
-     * Configures and provides a custom AuthenticationProvider using DaoAuthenticationProvider.
-     *
-     * @return AuthenticationProvider
-     */
     @Bean
-    public AuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService());
-        authProvider.setPasswordEncoder(passwordEncoder());
-        return authProvider;
+    JwtDecoder jwtDecoder() {
+        SecretKeySpec spec = new SecretKeySpec(secretKey.getBytes(), "RSA");
+        return NimbusJwtDecoder.withSecretKey(spec).macAlgorithm(MacAlgorithm.HS512).build();
     }
 
-    /**
-     * Retrieves the AuthenticationManager from the provided AuthenticationConfiguration.
-     *
-     * @param config AuthenticationConfiguration
-     * @return AuthenticationManager
-     * @throws Exception if an error occurs while retrieving the AuthenticationManager
-     */
+
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
-        return config.getAuthenticationManager();
+    public AuthenticationManager authenticationManager(UserDetailsService detailsService) {
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setUserDetailsService(detailsService);
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+        return new ProviderManager(daoAuthenticationProvider);
     }
 
-    /**
-     * Creates an instance of BCryptPasswordEncoder as the password encoder.
-     *
-     * @return PasswordEncoder
-     */
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

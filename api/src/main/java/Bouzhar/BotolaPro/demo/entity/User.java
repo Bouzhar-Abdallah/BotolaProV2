@@ -9,28 +9,16 @@ import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.sql.Date;
-import java.util.Collection;
-import java.util.List;
-import java.util.UUID;
 
-/**
- * Represents a user entity in the system.
- * Extends and implements the {@link UserDetails} interface for Spring Security integration.
- * Includes user-specific attributes like email, password, personal details, and roles.
- *
- * @author <a href="mailto:ouharrioutman@gmail.com">Ouharri Outman</a>
- * @version 2.0
- */
-@Getter
-@Setter
-@Entity
-@SuperBuilder
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "_user")
+
+import java.util.Collection;
+
 @Inheritance(strategy = InheritanceType.JOINED)
-public class User implements UserDetails {
+@Entity
+@Table(name = "users")
+public class User  {
+
+
     @Id
     @GenericGenerator(name = "UUID")
     @GeneratedValue(strategy = GenerationType.UUID)

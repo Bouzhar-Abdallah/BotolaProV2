@@ -1,0 +1,80 @@
+<div class="bg-gray-100">
+    <app-navbar-dashboard></app-navbar-dashboard>
+    
+    <main>
+        <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+            <div class="px-4 py-6 sm:px-0">
+                <div class="border-4 border-dashed border-gray-200 rounded-lg">
+                    <div class="flex flex-col space-y-4">
+                        <div class="rounded-lg border shadow-sm w-full" data-v0-t="card">
+                          
+                            <div class="p-6">
+                                <div class="relative w-full overflow-auto">
+                                    <table class="w-full caption-bottom text-sm">
+                                        <thead class="[&amp;_tr]:border-b">
+                                            <tr
+                                                class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
+                                                <th
+                                                    class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+                                                    Title</th>
+                                                <th
+                                                    class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+                                                    View count</th>
+                                                <th
+                                                    class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+                                                    Status</th>
+                                                <th
+                                                    class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+                                                    Date</th>
+                                                <th
+                                                    class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+                                                    Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="">
+                                            <tr  *ngFor="let article of articles"
+                                                class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
+                                                <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
+                                                    {{article.title}}
+                                                </td>
+                                                <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
+                                                    {{article.readCount}}
+                                                </td>
+                                                <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
+                                                    {{article.isApproved}}
+                                                </td>
+                                                <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
+                                                    {{article.createdAt | date}}
+                                                </td>
+                                                <td class="p-4 align-middle flex [&amp;:has([role=checkbox])]:pr-0"><button
+                                                        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 hover:bg-indigo-400">Edit</button>
+                                                        <button
+                                                        (click)="delete(article.id)"
+                                                        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-destructive text-destructive-foreground hover:bg-destructive/90 h-10 px-4 py-2 hover:bg-rose-400">Delete</button>
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+<div class="fixed bottom-2 p-4 flex items-center flex-wrap w-full justify-center ">
+    <nav aria-label="Page navigation">
+      <ul class="inline-flex">
+        <li><button class="px-4 py-2 text-indigo-500 transition-colors duration-150 bg-white border border-r-0 border-indigo-500 rounded-l-lg focus:shadow-outline hover:bg-indigo-100">Prev</button></li>
+        
+        <li *ngFor="let page of [].constructor(totalPages); let i = index">
+            <button (click)="setPage(i)" [ngClass]="i == pageNumber ? 'current':'other'">{{ i + 1 }}</button>
+          </li>
+        
+        <li><button class="px-4 py-2 text-indigo-500 transition-colors duration-150 bg-white border border-indigo-500 rounded-r-lg focus:shadow-outline hover:bg-indigo-100">Next</button></li>
+      </ul>
+    </nav>
+  </div>
