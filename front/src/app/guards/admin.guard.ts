@@ -5,12 +5,10 @@ import { AuthService } from '../services/auth.service';
 export const adminGuard: CanActivateFn = (route, state) => {
   const auth = inject(AuthService);
   const router = inject(Router);
-  if (!auth.isAuthenticated()) {
-    router.navigateByUrl('/login');
-    return false;
-  }
-
-  if (!auth.isAdmin()) {
+  
+console.log("admin guard trigred")
+if (!auth.isAdmin() || !auth.isAuthenticated()) {
+    console.log("is not admin")
     router.navigateByUrl('/unauth');
   } else {
     return true;

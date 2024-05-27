@@ -42,7 +42,11 @@ import java.util.List;
 public class SecurityConfiguration {
     @Value("${jwt.secret}")
     private String secretKey;
+    private CustomUserDetailsService userDetailsService;
 
+    public SecurityConfiguration(CustomUserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -72,7 +76,7 @@ public class SecurityConfiguration {
         return NimbusJwtDecoder.withSecretKey(spec).macAlgorithm(MacAlgorithm.HS512).build();
     }
 
-    @Bean
+/*    @Bean
     public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
         PasswordEncoder passwordEncoder = passwordEncoder();
         return new InMemoryUserDetailsManager(
@@ -80,7 +84,7 @@ public class SecurityConfiguration {
                 User.withUsername("redactor").password(passwordEncoder.encode("password")).roles("REDACTOR").build(),
                 User.withUsername("admin").password(passwordEncoder.encode("password")).roles("ADMIN").build()
         );
-    }
+    }*/
 
     @Bean
     public AuthenticationManager authenticationManager(UserDetailsService detailsService) {
@@ -89,22 +93,18 @@ public class SecurityConfiguration {
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
         return new ProviderManager(daoAuthenticationProvider);
     }
-
+/*    @Bean
+    public AuthenticationManager authenticationManager() {
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setUserDetailsService(userDetailsService);
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+        return new ProviderManager(List.of(daoAuthenticationProvider));
+    }*/
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    CorsConfigurationSource corsConfigurationSource(){
-        CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.addAllowedOrigin("*");
-        corsConfiguration.addAllowedHeader("*");
-        corsConfiguration.addAllowedMethod("*");
-        //corsConfiguration.setExposedHeaders(List.of("x-auth-token"));
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", corsConfiguration);
-        return source;
-    }
+
 }

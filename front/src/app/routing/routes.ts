@@ -51,7 +51,7 @@ export const routes: Routes =[
     },
     {
       path: 'redactor',
-      canActivateChild: [redactorGuard],
+      canActivateChild: [adminGuard],
       children:[
         {
           path: 'home',
