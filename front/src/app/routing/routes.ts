@@ -14,6 +14,7 @@ import { UnAuthorizedComponent } from "../shared/un-authorized/un-authorized.com
 import { userGuard } from "../guards/user.guard";
 import { adminGuard } from "../guards/admin.guard";
 import { redactorGuard } from "../guards/redactor.guard";
+import { RegisterComponent } from "../features/auth/register/register.component";
 
 
 
@@ -75,6 +76,7 @@ export const routes: Routes =[
     },
     { path: 'articles/:id', component: ArticlePageComponent},
     { path: 'login', component: LoginComponent},
+    { path: 'register', component: RegisterComponent},
     { path: 'unauth', component: UnAuthorizedComponent},
  
     

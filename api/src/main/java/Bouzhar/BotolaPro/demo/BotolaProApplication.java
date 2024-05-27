@@ -28,21 +28,21 @@ public class BotolaProApplication {
             Set<AppRole> adminRoles = new HashSet<>();
             adminRoles.add(appRoleRepository.findAppRoleByAuthority("ADMIN").get());
 
-            AppUser admin = new AppUser(1L, "admin", "admin@gmail.com", passwordEncoder.encode("password"), true, adminRoles);
-            if (appUserRepository.findByEmail("admin").isEmpty()) appUserRepository.save(admin);
+            AppUser admin = new AppUser("admin","admin","0649600623", "admin@gmail.com", passwordEncoder.encode("password"), true, adminRoles);
+            if (appUserRepository.findByEmail("admin@gmail.com").isEmpty()) appUserRepository.save(admin);
 
 
             Set<AppRole> userRoles = new HashSet<>();
             userRoles.add(appRoleRepository.findAppRoleByAuthority("USER").get());
 
-            AppUser user = new AppUser(1L, "user", "user@gmail.com", passwordEncoder.encode("password"), true, userRoles);
-            if (appUserRepository.findByEmail("user").isEmpty()) appUserRepository.save(user);
+            AppUser user = new AppUser("user","user","0649600623", "user@gmail.com", passwordEncoder.encode("password"), true, userRoles);
+            if (appUserRepository.findByEmail("user@gmail.com").isEmpty()) appUserRepository.save(user);
 
             Set<AppRole> redactorRoles = new HashSet<>();
             redactorRoles.add(appRoleRepository.findAppRoleByAuthority("REDACTOR").get());
 
-            AppUser redactor = new AppUser(1L, "redactor", "redactor@gmail.com", passwordEncoder.encode("password"), true, redactorRoles);
-            if (appUserRepository.findByEmail("redactor").isEmpty()) appUserRepository.save(redactor);
+            AppUser redactor = new AppUser("redactor","redactor","0649600623", "redactor@gmail.com", passwordEncoder.encode("password"), true, redactorRoles);
+            if (appUserRepository.findByEmail("redactor@gmail.com").isEmpty()) appUserRepository.save(redactor);
 
 
             if (appRoleRepository.findAppRoleByAuthority("ADMIN").isPresent()) return;

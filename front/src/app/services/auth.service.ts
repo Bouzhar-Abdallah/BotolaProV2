@@ -12,7 +12,7 @@ export class AuthService {
   accessToken!: string;
   username?: string;
   roles!: any;
-  
+
   public login(username: string, password: string) {
     let options = {
       headers: new HttpHeaders().set(
@@ -27,6 +27,15 @@ export class AuthService {
       ' http://localhost:8082/api/v1/auth/login',
       params,
       options
+    );
+  }
+  public register(data: any) {
+    console.log(data)
+    
+  
+    return this.http.post(
+      ' http://localhost:8082/api/v1/auth/register',
+      data
     );
   }
 

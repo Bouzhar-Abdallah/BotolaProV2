@@ -19,6 +19,16 @@ import java.util.Set;
 @Data
 @Builder
 public class AppUser implements UserDetails {
+    public AppUser(String firstName, String lastName, String numeroTel, String email, String password, Boolean isLocked, Set<AppRole> roles) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.numeroTel = numeroTel;
+        this.email = email;
+        this.password = password;
+        this.isLocked = isLocked;
+        this.roles = roles;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.roles;
@@ -31,7 +41,7 @@ public class AppUser implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.username;
+        return this.email;
     }
 
     @Override
@@ -57,7 +67,11 @@ public class AppUser implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String firstName;
     private String username;
+    private String lastName;
+    private String numeroTel;
     private String email;
     private String password;
     private Boolean isLocked;

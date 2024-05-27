@@ -56,35 +56,25 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/api/v1/auth/**").permitAll())
                 .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
                 .cors(Customizer.withDefaults())
-                //.httpBasic(Customizer.withDefaults())
                 .oauth2ResourceServer(oa -> oa.jwt(Customizer.withDefaults()))
                 .build();
-
+        //method is enabling the OAuth 2.0 Resource Server functionality in Spring Security
+        //configuring the application to act as an OAuth 2.0 Resource Server
+        //the application is able to authenticate requests via an incoming token
 
     }
 
     @Bean
     JwtEncoder jwtEncoder() {
-        //String secretKey = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345678923";
         return new NimbusJwtEncoder(new ImmutableSecret<>(secretKey.getBytes()));
     }
 
     @Bean
     JwtDecoder jwtDecoder() {
-        //String secretKey = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345678923";
         SecretKeySpec spec = new SecretKeySpec(secretKey.getBytes(), "RSA");
         return NimbusJwtDecoder.withSecretKey(spec).macAlgorithm(MacAlgorithm.HS512).build();
     }
 
-/*    @Bean
-    public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
-        PasswordEncoder passwordEncoder = passwordEncoder();
-        return new InMemoryUserDetailsManager(
-                User.withUsername("user").password(passwordEncoder.encode("password")).roles("USER").build(),
-                User.withUsername("redactor").password(passwordEncoder.encode("password")).roles("REDACTOR").build(),
-                User.withUsername("admin").password(passwordEncoder.encode("password")).roles("ADMIN").build()
-        );
-    }*/
 
     @Bean
     public AuthenticationManager authenticationManager(UserDetailsService detailsService) {
@@ -93,13 +83,6 @@ public class SecurityConfiguration {
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
         return new ProviderManager(daoAuthenticationProvider);
     }
-/*    @Bean
-    public AuthenticationManager authenticationManager() {
-        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setUserDetailsService(userDetailsService);
-        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-        return new ProviderManager(List.of(daoAuthenticationProvider));
-    }*/
 
     @Bean
     public PasswordEncoder passwordEncoder() {
